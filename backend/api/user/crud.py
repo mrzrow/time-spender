@@ -55,7 +55,16 @@ async def create_user(
         session: AsyncSession,
         user_in: UserCreate
 ) -> User:
-    user = User(**user_in.model_dump(), events=[])
-    session.add(user)
-    await session.commit()
+    req = (
+        select(User)
+        .options(
+            selectinload(User.events)
+        )
+        .where(User.tg_id == user_in.tg_id)
+    )
+    user: User | None = await session.scalar(req)
+    if user is None:
+        user = User(**user_in.model_dump(), events=[])
+        session.add(user)
+        await session.commit()
     return user
