@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.api.user import crud
@@ -28,7 +28,14 @@ async def get_user_by_tg_id(
         tg_id: str,
         session: AsyncSession = Depends(db_helper.session_dependency)
 ):
-    return await crud.get_user_by_tg_id(session=session, tg_id=tg_id)
+    user = await crud.get_user_by_tg_id(session=session, tg_id=tg_id)
+    if user is not None:
+        return user
+
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND,
+        detail=f'User with {tg_id=} not found'
+    )
 
 
 @router.get('/{user_id}/', response_model=User)
