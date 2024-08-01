@@ -31,7 +31,7 @@ async def h_register(message: Message, state: FSMContext):
             url=f'{API_URL}/user/',
             json={'tg_id': tg_id}
         ) as req:
-            if req.status // 100 == 2:
+            if (req.status // 100) == 2:
                 await message.answer(
                     text=msg_register_success,
                     parse_mode=ParseMode.MARKDOWN_V2
