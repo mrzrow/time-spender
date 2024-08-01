@@ -1,10 +1,30 @@
+from sqlalchemy import Result, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from ...core.models import Event
+from backend.api.event.schemas import EventCreate
+from backend.core.models import Event
 
 
-async def get_event_by_id(
+async def get_user_events(
         session: AsyncSession,
-        event_id: int
-) -> Event | None:
-    return await session.get(Event, event_id)
+        user_id: int
+) -> list[Event]:
+    req = (
+        select(Event)
+        .where(Event.user_id == user_id)
+        .order_by(Event.date_start)
+    )
+    result: Result = await session.execute(req)
+    events = result.scalars().all()
+    return list(events)
+
+
+async def create_user_event(
+        session: AsyncSession,
+        user_id: int,
+        event_in: EventCreate
+) -> Event:
+    event = Event(user_id=user_id, **event_in.model_dump())
+    session.add(event)
+    await session.commit()
+    return event
