@@ -8,5 +8,5 @@ if TYPE_CHECKING:
 
 
 class User(Base):
-    tg_id: Mapped[str] = mapped_column(unique=True, nullable=False)
+    tg_id: Mapped[int] = mapped_column(unique=True, nullable=False)
     events: Mapped[list['Event']] = relationship(back_populates='user')

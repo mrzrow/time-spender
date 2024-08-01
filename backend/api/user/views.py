@@ -25,7 +25,7 @@ async def create_user(
 
 @router.get('/tg/{tg_id}/', response_model=User)
 async def get_user_by_tg_id(
-        tg_id: str,
+        tg_id: int,
         session: AsyncSession = Depends(db_helper.session_dependency)
 ):
     user = await crud.get_user_by_tg_id(session=session, tg_id=tg_id)

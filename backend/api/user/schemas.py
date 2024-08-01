@@ -4,7 +4,7 @@ from backend.api.event.schemas import Event
 
 
 class UserBase(BaseModel):
-    tg_id: str
+    tg_id: int
 
 
 class UserCreate(UserBase):
