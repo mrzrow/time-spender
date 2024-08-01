@@ -7,7 +7,7 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import BotCommand
 
-from bot.handlers.comands import h_start, h_help
+from bot.handlers.comands import h_start, h_help, h_register
 
 
 def create_commands():
@@ -24,3 +24,4 @@ def create_commands():
 def register_commands(router: Router):
     router.message.register(h_start, Command(commands=['start']))
     router.message.register(h_help, Command(commands=['help']))
+    router.message.register(h_register, Command(commands=['register']))
