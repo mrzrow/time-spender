@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+bot/imgs/
 
 # C extensions
 *.so
