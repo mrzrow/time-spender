@@ -1,7 +1,7 @@
 __all__ = (
     'create_commands',
     'register_commands',
-    'register_commands_add'
+    'register_commands_add_and_plot'
 )
 
 from aiogram import Router
@@ -10,6 +10,7 @@ from aiogram.types import BotCommand
 
 from bot.handlers.comands import h_start, h_help, h_register
 from bot.handlers.events_add import h_add, h_add_title, h_add_date, h_add_duration
+from bot.handlers.events_plot import h_plot
 from bot.utils.fsm import StateMachine
 
 
@@ -19,7 +20,7 @@ def create_commands():
         ('help', 'Вывести справку о работе бота'),
         ('register', 'Зарегистрировать свой Telegram ID'),
         ('add', 'Добавить событие'),
-        ('infograph', 'Вывести инфографику')
+        ('diagram', 'Вывести диаграмму')
     ]
     return [BotCommand(command=cmd[0], description=cmd[1]) for cmd in bot_commands]
 
@@ -30,7 +31,8 @@ def register_commands(router: Router):
     router.message.register(h_register, Command(commands=['register']))
 
 
-def register_commands_add(router: Router):
+def register_commands_add_and_plot(router: Router):
+    router.message.register(h_plot, Command(commands=['diagram']))
     router.message.register(h_add, Command(commands=['add']))
     router.message.register(h_add_title, StateMachine.add_title)
     router.message.register(h_add_date, StateMachine.add_date)

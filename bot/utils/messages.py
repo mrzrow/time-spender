@@ -45,3 +45,4 @@ msg_add_success = (
     '''Событие успешно создано\.'''
 )
 msg_add_error = msg_register_error
+msg_plot_error = msg_register_error

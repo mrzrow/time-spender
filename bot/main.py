@@ -6,7 +6,7 @@ from aiogram import Bot, Dispatcher, Router
 
 from bot.middleware import IsRegisteredMiddleware
 from config import TOKEN
-from handlers import create_commands, register_commands, register_commands_add
+from handlers import create_commands, register_commands, register_commands_add_and_plot
 
 
 async def main():
@@ -19,7 +19,7 @@ async def main():
     await bot.set_my_commands(commands=create_commands())
 
     register_commands(dp)
-    register_commands_add(router)
+    register_commands_add_and_plot(router)
 
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)

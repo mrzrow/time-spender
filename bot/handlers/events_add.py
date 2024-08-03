@@ -36,7 +36,8 @@ async def h_add_title(message: Message, state: FSMContext):
         parse_mode=ParseMode.MARKDOWN_V2
     )
     await state.set_state(StateMachine.add_date)
-    await state.update_data(title=title, **data)
+    await state.update_data(**data)
+    await state.update_data(title=title)
 
 
 async def h_add_date(message: Message, state: FSMContext):
@@ -55,7 +56,8 @@ async def h_add_date(message: Message, state: FSMContext):
         parse_mode=ParseMode.MARKDOWN_V2
     )
     await state.set_state(StateMachine.add_duration)
-    await state.update_data(date=date, **data)
+    await state.update_data(**data)
+    await state.update_data(date=date)
 
 
 async def h_add_duration(message: Message, state: FSMContext):
