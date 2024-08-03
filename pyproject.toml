@@ -15,7 +15,7 @@ aiosqlite = "^0.20.0"
 alembic = "^1.13.2"
 python-dotenv = "^1.0.1"
 matplotlib = "^3.9.1"
-seaborn = "^0.13.2"
+pandas = "^2.2.2"
 
 [build-system]
 requires = ["poetry-core"]
